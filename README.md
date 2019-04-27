@@ -2,12 +2,16 @@
 A Splash screen library for Android made in Kotlin
 <br>
 [ ![Download](https://api.bintray.com/packages/rahuldange/Splashy/com.rbddevs.splashy/images/download.svg?version=1.1.0) ](https://bintray.com/rahuldange/Splashy/com.rbddevs.splashy/1.1.0/link)
+![SDK 15+](https://img.shields.io/badge/API-15%2B-brightgreen.svg)
 
 <div align="center">
-  <sub>Built with ❤︎ by
-  <a href="https://github.com/rahuldange09">Rahul Dange</a>
+  <p align="center">Built with ❤︎ by
+	  <a href="https://github.com/rahuldange09">Rahul Dange</a></p>
 </div>
+<br>
 
+![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/slide_top_bottom.gif?token=ABT5RJVRNXKKGSPSW2ZR3C24YS7IY)&nbsp;&nbsp;&nbsp;&nbsp;
+![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/blink_logo.gif?token=ABT5RJVDSOWCJBMCUQ6RE5K4YS7DQ)
 ## 💻 Installation
 Add this in your app's build.gradle file:
 ```groovy
@@ -58,15 +62,11 @@ fun setSplashy(){
 	    .setBackgroundResource("#000000")
  	    .setFullScreen(true)
 	    .setTime(5000)
-            .show()
-	   
-	  
-	
-	    
+            .show()	    
 }
 	    
 ```
-**Splashy.hide() AND Splashy.onComplete(getComplete: OnComplete)**
+**Splashy.hide()  AND  Splashy.onComplete(getComplete: OnComplete)**
 ``` kotlin
 fun checkLogin(){
 	Splashy(this).setInfiniteDuration(true).show()   // For JAVA : new Splashy(this)
@@ -75,9 +75,9 @@ fun checkLogin(){
 	Response.onResponse(object  : Response.onResponse{
 		override fun onResponse(response){
 			Splashy.hide()				// Hide after operation
-	}
+		}
 
-}
+	}
 
 	// Listener for completion of splash screen
 	Splashy.onComplete(object : Splashy.OnComplete {
@@ -213,5 +213,23 @@ All customizable attributes for Splashy
 		<td>--</td>
 		<td>Hides splash screen. Helpful when set to infinite duration. </td>
 	</tr>
+</table>
+
+# 📃 License
+
+    Copyright 2018 Rahul Dange
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
 	
 	
