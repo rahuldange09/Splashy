@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Splashy</string>
+    <string name="splashy">Splashy</string>
+    <string name="show_splashy">Show Splashy</string>
+    <string name="title">Title</string>
+    <string name="splash_screen_made_easy">Splash screen made easy</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="show_title">SHOW TITLE</string>
+</resources>
