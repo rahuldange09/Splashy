@@ -10,8 +10,8 @@ A Splash screen library for Android made in Kotlin
 </div>
 <br>
 
-![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/slide_top_bottom.gif?token=ABT5RJVRNXKKGSPSW2ZR3C24YS7IY)&nbsp;&nbsp;&nbsp;&nbsp;
-![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/blink_logo.gif?token=ABT5RJVDSOWCJBMCUQ6RE5K4YS7DQ)
+![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/slide_top_bottom.gif)&nbsp;&nbsp;&nbsp;&nbsp;
+![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/blink_logo.gif)
 ## 💻 Installation
 Add this in your app's build.gradle file:
 ```groovy
