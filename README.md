@@ -1,5 +1,5 @@
 # Splashy
-A Splash screen library for Android made in Kotlin
+A Splash screen library for Android made in Kotlin provides customizations and amazing animations by ease
 <br>
 [ ![Download](https://api.bintray.com/packages/rahuldange/Splashy/com.rbddevs.splashy/images/download.svg?version=1.1.0) ](https://bintray.com/rahuldange/Splashy/com.rbddevs.splashy/1.1.0/link)
 ![SDK 15+](https://img.shields.io/badge/API-15%2B-brightgreen.svg)
