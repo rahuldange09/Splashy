@@ -1,8 +1,11 @@
 # Splashy
-A Splash screen library for Android made in Kotlin provides customizations and amazing animations by ease
-<br>
+<p>A Splash screen library for Android developed in Kotlin provides customizations and amazing animations by ease.</p>
+	<p><b>It works with both Java and Kotlin.<b></p>
+
 [ ![Download](https://api.bintray.com/packages/rahuldange/Splashy/com.rbddevs.splashy/images/download.svg?version=1.1.0) ](https://bintray.com/rahuldange/Splashy/com.rbddevs.splashy/1.1.0/link)
-![SDK 15+](https://img.shields.io/badge/API-15%2B-brightgreen.svg)
+![SDK 15+](https://img.shields.io/badge/API-15%2B-brightgreen.svg) 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Splashy-orange.svg?style=flat-square)](https://android-arsenal.com/details/1/7638)
+
 
 <div align="center">
   <p align="center">Built with ❤︎ by
@@ -11,6 +14,7 @@ A Splash screen library for Android made in Kotlin provides customizations and a
 <br>
 
 ![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/slide_top_bottom.gif)&nbsp;&nbsp;&nbsp;&nbsp;
+![image](https://github.com/rahuldange09/Splashy/blob/master/images/slide_left_right_with_bg.gif)
 ![image](https://raw.githubusercontent.com/rahuldange09/Splashy/master/images/blink_logo.gif)
 ## 💻 Installation
 Add this in your app's build.gradle file:
