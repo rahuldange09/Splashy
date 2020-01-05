@@ -2,7 +2,7 @@
 <p>A Splash screen library for Android developed in Kotlin provides customizations and amazing animations by ease.<br/>
 	<b>It works with both Java and Kotlin.</b></p>
 
-[ ![Download](https://api.bintray.com/packages/rahuldange/Splashy/com.rbddevs.splashy/images/download.svg?version=1.1.0) ](https://bintray.com/rahuldange/Splashy/com.rbddevs.splashy/1.1.0/link)
+[ ![Download](https://api.bintray.com/packages/rahuldange/Splashy/com.rbddevs.splashy/images/download.svg) ](https://bintray.com/rahuldange/Splashy/com.rbddevs.splashy/_latestVersion)
 ![SDK 15+](https://img.shields.io/badge/API-15%2B-brightgreen.svg) 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Splashy-orange.svg?style=flat-square)](https://android-arsenal.com/details/1/7638)
 
@@ -31,7 +31,7 @@ Or add Splashy as a new dependency inside your pom.xml
 <dependency>
 	<groupId>com.rbddevs.splashy</groupId>
 	<artifactId>splashy</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<type>pom</type>
 </dependency>
 ```
@@ -236,7 +236,7 @@ All customizable attributes for Splashy
 
 # 📃 License
 
-    Copyright 2018 Rahul Dange
+    Copyright 2019 Rahul Dange
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
