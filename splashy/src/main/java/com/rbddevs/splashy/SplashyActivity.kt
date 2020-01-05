@@ -11,10 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.LinearInterpolator
+import android.view.animation.*
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_splashy.*
 
@@ -38,6 +35,8 @@ class SplashyActivity : AppCompatActivity() {
         internal const val TITLE_SIZE = "title_size"
         internal const val TITLE_COLOR = "title_color"
         internal const val TITLE_COLOR_VALUE = "title_color_value"
+        internal const val TITLE_FONT_STYLE = "title_font_style"
+
 
         // Subtitle attributes
         //  internal const val SHOW_SUBTITLE = "show_subtitle"
@@ -47,6 +46,7 @@ class SplashyActivity : AppCompatActivity() {
         internal const val SUBTITLE_COLOR = "subtitle_color"
         internal const val SUBTITLE_COLOR_VALUE = "subtitle_color_value"
         internal const val SUBTITLE_ITALIC = "subtitle_italic"
+        internal const val SUBTITLE_FONT_STYLE = "subtitle_font_style"
 
         // Splash Logo
         internal const val SHOW_LOGO = "show_logo"
@@ -73,6 +73,7 @@ class SplashyActivity : AppCompatActivity() {
         // Status and Navigation Bar Color
 //        const val STATUS_NAV_BAR_COLOR_AS_BACKGROUND_COLOR = "status_nav_bar_color_as_background_color"
         const val FULL_SCREEN = "full_screen"
+        const val CLICK_TO_HIDE= "click_to_hide"
 
         // on OnComplete listener
         internal var onComplete: Splashy.OnComplete? = null
@@ -101,6 +102,8 @@ class SplashyActivity : AppCompatActivity() {
 
         setFullScreen()
 
+        setClickToHide()
+
         setAnimation()
 
         setTime()
@@ -118,7 +121,7 @@ class SplashyActivity : AppCompatActivity() {
         }
 
         if (intent.hasExtra(LOGO)) {
-            ivLogo.setImageResource(intent.getIntExtra(LOGO, R.drawable.splashy))
+            ivLogo.setImageResource(intent.getIntExtra(LOGO, android.R.drawable.zoom_plate))
         }
 
         if (intent.hasExtra(LOGO_WIDTH) || intent.hasExtra(LOGO_HEIGHT)) {
@@ -163,6 +166,12 @@ class SplashyActivity : AppCompatActivity() {
         if (intent.hasExtra(TITLE_COLOR_VALUE)) {
             tvTitle.setTextColor(Color.parseColor(intent.getStringExtra(TITLE_COLOR_VALUE)))
         }
+        if (intent.hasExtra(TITLE_FONT_STYLE)) {
+            intent.getStringExtra(TITLE_FONT_STYLE)?.let {
+                val typeface = Typeface.createFromAsset(assets, intent.getStringExtra(TITLE_FONT_STYLE))
+                tvTitle.typeface = typeface
+            }
+        }
     }
 
     private fun setSubTitle() {
@@ -186,6 +195,12 @@ class SplashyActivity : AppCompatActivity() {
         }
         if (intent.hasExtra(SUBTITLE_ITALIC)) {
             if (!intent.getBooleanExtra(SUBTITLE_ITALIC, true)) tvSubTitle.setTypeface(null, Typeface.NORMAL)
+        }
+        if (intent.hasExtra(SUBTITLE_FONT_STYLE)) {
+            intent.getStringExtra(SUBTITLE_FONT_STYLE)?.let {
+                val typeface = Typeface.createFromAsset(assets, intent.getStringExtra(SUBTITLE_FONT_STYLE))
+                tvSubTitle.typeface = typeface
+            }
         }
     }
 
@@ -241,6 +256,17 @@ class SplashyActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun setClickToHide(){
+
+        if(intent.getBooleanExtra(CLICK_TO_HIDE, false)){
+            rlMain.setOnClickListener {
+                finish()
+
+            }
+        }
+    }
+
 
     private fun setAnimation() {
         if (intent.hasExtra(ANIMATION_TYPE)) {
@@ -361,6 +387,26 @@ class SplashyActivity : AppCompatActivity() {
                     blinkAnimation.repeatMode = Animation.REVERSE
                     ivLogo.animation = blinkAnimation
                     tvTitle.animation = blinkAnimation
+                }
+
+                Splashy.Animation.GROW_LOGO_FROM_CENTER->{
+
+                    val fadeIn = ScaleAnimation(
+                        0f,
+                        1f,
+                        0f,
+                        1f,
+                        Animation.RELATIVE_TO_SELF,
+                        0.5f,
+                        Animation.RELATIVE_TO_SELF,
+                        0.5f
+                    )
+                    fadeIn.duration = duration // animation duration in milliseconds
+
+                    fadeIn.fillAfter =
+                        true // If fillAfter is true, the transformation that this animation performed will persist when it is finished.
+
+                    ivLogo.animation= fadeIn
                 }
             }
         }

@@ -20,8 +20,8 @@
 Add this in your app's build.gradle file:
 ```groovy
 dependencies {
-  implementation 'com.rbddevs.splashy:splashy:1.1.0'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.21+" // For JAVA Only
+  implementation 'com.rbddevs.splashy:splashy:1.2.0'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61+" // For JAVA Only
 }
 ```
 
@@ -143,6 +143,11 @@ All customizable attributes for Splashy
 		<td>The size of title text in float.</td>
 	</tr>
 	<tr>
+		<td>setTitleFontStyle(fontName : String)</td>
+		<td>"fonts/satisfy_regular.ttf"</td>
+		<td>To set custom font for title.</td>
+	</tr>
+	<tr>
 		<td>setSubTitleColor(color: Int) <br> OR <br> setSubTitleColor(colorValue: String)</td>
 		<td>R.color.gray <br> OR <br> "#888888"</td>
 		<td>The color of sub title either resource id from strings.xml OR HEX value.</td>
@@ -152,10 +157,15 @@ All customizable attributes for Splashy
 		<td>16F</td>
 		<td>The size of title text in float.</td>
 	</tr>
-		<tr>
+	<tr>
 		<td>setSubTitleItalic(italic : Boolean)</td>
 		<td>true</td>
 		<td>To set subtitle in italic style or not.</td>
+	</tr>
+	<tr>
+		<td>setSubTitleFontStyle(fontName : String)</td>
+		<td>"fonts/satisfy_regular.ttf"</td>
+		<td>To set custom font for subtitle.</td>
 	</tr>
 	<tr>
 		<td>showLogo(show: Boolean)</td>
@@ -195,7 +205,12 @@ All customizable attributes for Splashy
 	<tr>
 		<td>setAnimation(type: Animation, duration: Long)</td>
 		<td>(NONE,800)</td>
-		<td>The amazing splash screen animations with duration. <br> Eg. (Splashy.Animation.SLIDE_IN_TOP_BOTTOM, 800) , Types: SLIDE_IN_TOP_BOTTOM,  SLIDE_IN_LEFT_BOTTOM,  SLIDE_IN_LEFT_RIGHT,  SLIDE_LEFT_ENTER,  GLOW_LOGO,  GLOW_LOGO_TITLE</td>
+		<td>The amazing splash screen animations with duration. <br> Eg. (Splashy.Animation.SLIDE_IN_TOP_BOTTOM, 800) , Types: SLIDE_IN_TOP_BOTTOM,  SLIDE_IN_LEFT_BOTTOM,  SLIDE_IN_LEFT_RIGHT,  SLIDE_LEFT_ENTER,  GLOW_LOGO,  GLOW_LOGO_TITLE, GROW_LOGO_FROM_CENTER</td>
+	</tr>
+	<tr>
+		<td>setClickToHide(hide: Boolean)</td>
+		<td>true</td>
+		<td>Hides splash screen on anywhere click.</td>
 	</tr>
 	<tr>
 		<td>setFullScreen(yes: Boolean)</td>

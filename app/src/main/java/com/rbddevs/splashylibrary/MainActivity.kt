@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.Toast
 import com.rbddevs.splashy.Splashy
 
+
 class MainActivity : AppCompatActivity() {
-    lateinit var sp: Splashy
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,18 +20,21 @@ class MainActivity : AppCompatActivity() {
     private fun setSplashy() {
         Splashy(this)
             .setLogo(R.drawable.splashy)
-            .setAnimation(Splashy.Animation.GLOW_LOGO)
+            .setAnimation(Splashy.Animation.GROW_LOGO_FROM_CENTER)
             .setBackgroundResource(R.color.black)
             .setTitleColor(R.color.white)
             .setProgressColor(R.color.white)
             .setTitle(R.string.splashy)
             .setSubTitle(R.string.splash_screen_made_easy)
             .setFullScreen(true)
+            .setSubTitleFontStyle("fonts/satisfy_regular.ttf")
+            .setClickToHide(true)
+            .setTime(5000)
             .show()
 
         Splashy.onComplete(object : Splashy.OnComplete {
             override fun onComplete() {
-                Toast.makeText(this@MainActivity, "Logged In", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "Welcome", Toast.LENGTH_SHORT).show()
             }
 
         })

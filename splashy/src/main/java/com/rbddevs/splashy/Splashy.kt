@@ -1,7 +1,9 @@
 package com.rbddevs.splashy
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Typeface
 import android.widget.ImageView
 
 class Splashy(private var activity: Activity) {
@@ -109,6 +111,11 @@ class Splashy(private var activity: Activity) {
         return this
     }
 
+    fun setTitleFontStyle(fontName: String): Splashy {
+        intent.putExtra(SplashyActivity.TITLE_FONT_STYLE, fontName)
+        return this
+    }
+
 
 //    *************************************** Splash Screen Title *********************************************************
 
@@ -180,6 +187,11 @@ class Splashy(private var activity: Activity) {
 
     fun setSubTitleItalic(italic: Boolean): Splashy {
         intent.putExtra(SplashyActivity.SUBTITLE_ITALIC, italic)
+        return this
+    }
+
+    fun setSubTitleFontStyle(fontName: String): Splashy {
+        intent.putExtra(SplashyActivity.SUBTITLE_FONT_STYLE, fontName)
         return this
     }
 
@@ -317,6 +329,11 @@ class Splashy(private var activity: Activity) {
         intent.putExtra(SplashyActivity.FULL_SCREEN, yes)
         return this
     }
+    fun setClickToHide(hide : Boolean) : Splashy{
+        intent.putExtra(SplashyActivity.CLICK_TO_HIDE, hide)
+
+        return this
+    }
 
 
 //    *************************************** Finally Splash Screen Show *********************************************************
@@ -332,7 +349,7 @@ class Splashy(private var activity: Activity) {
     }
 
     enum class Animation {
-        SLIDE_IN_TOP_BOTTOM, SLIDE_IN_LEFT_BOTTOM, SLIDE_IN_LEFT_RIGHT,SLIDE_LEFT_ENTER, GLOW_LOGO, GLOW_LOGO_TITLE
+        SLIDE_IN_TOP_BOTTOM, SLIDE_IN_LEFT_BOTTOM, SLIDE_IN_LEFT_RIGHT,SLIDE_LEFT_ENTER, GLOW_LOGO, GLOW_LOGO_TITLE, GROW_LOGO_FROM_CENTER
     }
 
     companion object {
@@ -357,6 +374,7 @@ class Splashy(private var activity: Activity) {
             val splashy = SplashyActivity()
             splashy.hideSplashy()
         }
+
 
 
     }

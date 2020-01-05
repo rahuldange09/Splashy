@@ -18,7 +18,7 @@ ext {
     siteUrl = 'https://github.com/rahuldange09/splashy'
     gitUrl = 'https://github.com/rahuldange09/splashy.git'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.2.0'
 
     developerId = 'rahuldange'
     developerName = 'Rahul Dange'
@@ -38,7 +38,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 101
-        versionName "1.1"
+        versionName "1.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
