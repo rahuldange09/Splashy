@@ -20,8 +20,8 @@
 Add this in your app's build.gradle file:
 ```groovy
 dependencies {
-  implementation 'com.rbddevs.splashy:splashy:1.2.0'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61+" // For JAVA Only
+  implementation 'com.rbddevs.splashy:splashy:1.3.0'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72+" // For JAVA Only
 }
 ```
 
@@ -31,7 +31,7 @@ Or add Splashy as a new dependency inside your pom.xml
 <dependency>
 	<groupId>com.rbddevs.splashy</groupId>
 	<artifactId>splashy</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<type>pom</type>
 </dependency>
 ```
@@ -113,7 +113,7 @@ All customizable attributes for Splashy
 		<td>The main title for Splashy either from strings.xml or string value</td>
 	</tr>
 	<tr>
-		<td>setTime(timeInMs : Long)</td>
+		<td>setDuration(timeInMs : Long)</td>
 		<td>2000</td>
 		<td>The time to show Splashy in Millisecond </td>
 	</tr>
