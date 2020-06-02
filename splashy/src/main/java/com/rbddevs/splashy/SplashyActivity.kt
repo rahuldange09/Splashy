@@ -1,5 +1,6 @@
 package com.rbddevs.splashy
 
+import android.content.pm.ApplicationInfo
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
@@ -16,10 +17,11 @@ import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_splashy.*
 
 
-class SplashyActivity : AppCompatActivity() {
+internal class SplashyActivity : AppCompatActivity() {
 
-    var time: Long = 2000
-    var isIntermediate = false
+    private var time: Long = 2000
+    private var isIntermediate = false
+
 
     companion object {
 
@@ -73,10 +75,21 @@ class SplashyActivity : AppCompatActivity() {
         // Status and Navigation Bar Color
 //        const val STATUS_NAV_BAR_COLOR_AS_BACKGROUND_COLOR = "status_nav_bar_color_as_background_color"
         const val FULL_SCREEN = "full_screen"
-        const val CLICK_TO_HIDE= "click_to_hide"
+        const val CLICK_TO_HIDE = "click_to_hide"
 
         // on OnComplete listener
         internal var onComplete: Splashy.OnComplete? = null
+
+        internal lateinit var activity: SplashyActivity
+
+        internal fun hideSplashy() {
+            //  instance.finishAffinity()
+            if (onComplete != null) {
+                onComplete?.onComplete()
+                onComplete = null
+            }
+            activity.finish()
+        }
 
 
     }
@@ -88,6 +101,7 @@ class SplashyActivity : AppCompatActivity() {
         setTheme(R.style.SplashyTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashy)
+        activity = this
 
 
         setLogo()
@@ -116,22 +130,36 @@ class SplashyActivity : AppCompatActivity() {
 
 
     private fun setLogo() {
+        val applicationInfo: ApplicationInfo = applicationInfo
+
         if (intent.hasExtra(SHOW_LOGO)) {
             if (!intent.getBooleanExtra(SHOW_LOGO, true)) ivLogo.visibility = View.GONE
         }
 
+
         if (intent.hasExtra(LOGO)) {
-            ivLogo.setImageResource(intent.getIntExtra(LOGO, android.R.drawable.zoom_plate))
+            ivLogo.setImageResource(intent.getIntExtra(LOGO, applicationInfo.icon))
+        } else {
+            ivLogo.setImageResource(applicationInfo.icon)
+
         }
 
         if (intent.hasExtra(LOGO_WIDTH) || intent.hasExtra(LOGO_HEIGHT)) {
             val width = intent.getIntExtra(LOGO_WIDTH, 200)
             val height = intent.getIntExtra(LOGO_HEIGHT, 200)
             val widthInDp =
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width.toFloat(), resources.displayMetrics)
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    width.toFloat(),
+                    resources.displayMetrics
+                )
                     .toInt()
             val heightInDp =
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height.toFloat(), resources.displayMetrics)
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    height.toFloat(),
+                    resources.displayMetrics
+                )
                     .toInt()
             ivLogo.layoutParams.width = widthInDp
             ivLogo.layoutParams.height = heightInDp
@@ -141,34 +169,52 @@ class SplashyActivity : AppCompatActivity() {
         }
 
         if (intent.hasExtra(LOGO_SCALE_TYPE)) {
-            val scaleType: ImageView.ScaleType = intent.getSerializableExtra(LOGO_SCALE_TYPE) as ImageView.ScaleType
+            val scaleType: ImageView.ScaleType =
+                intent.getSerializableExtra(LOGO_SCALE_TYPE) as ImageView.ScaleType
             ivLogo.scaleType = scaleType
             ivLogo.requestLayout()
         }
     }
 
     private fun setTitle() {
+        val applicationInfo: ApplicationInfo = applicationInfo
         if (intent.hasExtra(SHOW_TITLE)) {
             if (!intent.getBooleanExtra(SHOW_TITLE, true)) tvTitle.visibility = View.GONE
         }
-        if (intent.hasExtra(TITLE)) {
-            tvTitle.text = intent.getStringExtra(TITLE)
-        }
-        if (intent.hasExtra(TITLE_RESOURCE)) {
-            tvTitle.text = resources.getString(intent.getIntExtra(TITLE_RESOURCE, R.string.splashy))
+        when {
+            intent.hasExtra(TITLE) -> {
+                tvTitle.text = intent.getStringExtra(TITLE)
+            }
+            intent.hasExtra(TITLE_RESOURCE) -> {
+                tvTitle.text = resources.getString(
+                    intent.getIntExtra(
+                        TITLE_RESOURCE,
+                        applicationInfo.labelRes
+                    )
+                )
+            }
+            else -> {
+                tvTitle.text = resources.getString(applicationInfo.labelRes)
+            }
         }
         if (intent.hasExtra(TITLE_SIZE)) {
             tvTitle.textSize = intent.getFloatExtra(TITLE_SIZE, 40F)
         }
         if (intent.hasExtra(TITLE_COLOR)) {
-            tvTitle.setTextColor(ContextCompat.getColor(this, intent.getIntExtra(TITLE_COLOR, R.color.black)))
+            tvTitle.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    intent.getIntExtra(TITLE_COLOR, R.color.black)
+                )
+            )
         }
         if (intent.hasExtra(TITLE_COLOR_VALUE)) {
             tvTitle.setTextColor(Color.parseColor(intent.getStringExtra(TITLE_COLOR_VALUE)))
         }
         if (intent.hasExtra(TITLE_FONT_STYLE)) {
             intent.getStringExtra(TITLE_FONT_STYLE)?.let {
-                val typeface = Typeface.createFromAsset(assets, intent.getStringExtra(TITLE_FONT_STYLE))
+                val typeface =
+                    Typeface.createFromAsset(assets, intent.getStringExtra(TITLE_FONT_STYLE))
                 tvTitle.typeface = typeface
             }
         }
@@ -181,24 +227,38 @@ class SplashyActivity : AppCompatActivity() {
             tvSubTitle.visibility = View.VISIBLE
         }
         if (intent.hasExtra(SUBTITLE_RESOURCE)) {
-            tvSubTitle.text = resources.getString(intent.getIntExtra(SUBTITLE_RESOURCE, R.string.splashy_subtitle))
+            tvSubTitle.text = resources.getString(
+                intent.getIntExtra(
+                    SUBTITLE_RESOURCE,
+                    R.string.splashy_subtitle
+                )
+            )
             tvSubTitle.visibility = View.VISIBLE
         }
         if (intent.hasExtra(SUBTITLE_SIZE)) {
             tvSubTitle.textSize = intent.getFloatExtra(SUBTITLE_SIZE, 18F)
         }
         if (intent.hasExtra(SUBTITLE_COLOR)) {
-            tvSubTitle.setTextColor(ContextCompat.getColor(this, intent.getIntExtra(SUBTITLE_COLOR, R.color.eight)))
+            tvSubTitle.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    intent.getIntExtra(SUBTITLE_COLOR, R.color.eight)
+                )
+            )
         }
         if (intent.hasExtra(SUBTITLE_COLOR_VALUE)) {
             tvSubTitle.setTextColor(Color.parseColor(intent.getStringExtra(SUBTITLE_COLOR_VALUE)))
         }
         if (intent.hasExtra(SUBTITLE_ITALIC)) {
-            if (!intent.getBooleanExtra(SUBTITLE_ITALIC, true)) tvSubTitle.setTypeface(null, Typeface.NORMAL)
+            if (!intent.getBooleanExtra(SUBTITLE_ITALIC, true)) tvSubTitle.setTypeface(
+                null,
+                Typeface.NORMAL
+            )
         }
         if (intent.hasExtra(SUBTITLE_FONT_STYLE)) {
             intent.getStringExtra(SUBTITLE_FONT_STYLE)?.let {
-                val typeface = Typeface.createFromAsset(assets, intent.getStringExtra(SUBTITLE_FONT_STYLE))
+                val typeface =
+                    Typeface.createFromAsset(assets, intent.getStringExtra(SUBTITLE_FONT_STYLE))
                 tvSubTitle.typeface = typeface
             }
         }
@@ -212,11 +272,17 @@ class SplashyActivity : AppCompatActivity() {
 
         if (intent.hasExtra(PROGRESS_COLOR)) {
             val color = intent.getIntExtra(PROGRESS_COLOR, R.color.black)
-            pbLoad.indeterminateDrawable.setColorFilter(ContextCompat.getColor(this, color), PorterDuff.Mode.SRC_IN)
+            pbLoad.indeterminateDrawable.setColorFilter(
+                ContextCompat.getColor(this, color),
+                PorterDuff.Mode.SRC_IN
+            )
         }
         if (intent.hasExtra(PROGRESS_COLOR_VALUE)) {
             val color = intent.getStringExtra(PROGRESS_COLOR_VALUE)
-            pbLoad.indeterminateDrawable.setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_IN)
+            pbLoad.indeterminateDrawable.setColorFilter(
+                Color.parseColor(color),
+                PorterDuff.Mode.SRC_IN
+            )
         }
     }
 
@@ -230,11 +296,22 @@ class SplashyActivity : AppCompatActivity() {
             )
         }
         if (intent.hasExtra(BACKGROUND_COLOR_VALUE)) {
-            ivBackground.setBackgroundColor(Color.parseColor(intent.getStringExtra(BACKGROUND_COLOR_VALUE)))
+            ivBackground.setBackgroundColor(
+                Color.parseColor(
+                    intent.getStringExtra(
+                        BACKGROUND_COLOR_VALUE
+                    )
+                )
+            )
         }
 
         if (intent.hasExtra(BACKGROUND_RESOURCE)) {
-            ivBackground.setBackgroundResource(intent.getIntExtra(BACKGROUND_RESOURCE, R.color.white))
+            ivBackground.setBackgroundResource(
+                intent.getIntExtra(
+                    BACKGROUND_RESOURCE,
+                    R.color.white
+                )
+            )
         }
     }
 
@@ -257,9 +334,9 @@ class SplashyActivity : AppCompatActivity() {
 
     }
 
-    private fun setClickToHide(){
+    private fun setClickToHide() {
 
-        if(intent.getBooleanExtra(CLICK_TO_HIDE, false)){
+        if (intent.getBooleanExtra(CLICK_TO_HIDE, false)) {
             rlMain.setOnClickListener {
                 finish()
 
@@ -278,7 +355,8 @@ class SplashyActivity : AppCompatActivity() {
 
                     ivLogo.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_top)
                     tvTitle.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
-                    tvSubTitle.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
+                    tvSubTitle.animation =
+                        AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
 
                     ivLogo.animation.duration = duration
                     tvTitle.animation.duration = duration
@@ -300,7 +378,8 @@ class SplashyActivity : AppCompatActivity() {
 
                     ivLogo.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_left)
                     tvTitle.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
-                    tvSubTitle.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
+                    tvSubTitle.animation =
+                        AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
 
                     ivLogo.animation.duration = duration
                     tvTitle.animation.duration = duration
@@ -323,7 +402,8 @@ class SplashyActivity : AppCompatActivity() {
 
                     ivLogo.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_left)
                     tvTitle.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_right)
-                    tvSubTitle.animation = AnimationUtils.loadAnimation(this, R.anim.slide_from_right)
+                    tvSubTitle.animation =
+                        AnimationUtils.loadAnimation(this, R.anim.slide_from_right)
 
                     ivLogo.animation.duration = duration
                     tvTitle.animation.duration = duration
@@ -361,9 +441,15 @@ class SplashyActivity : AppCompatActivity() {
                             tvTitle.visibility = View.VISIBLE
                             tvSubTitle.visibility = View.VISIBLE
                             tvTitle.animation =
-                                AnimationUtils.loadAnimation(this@SplashyActivity, R.anim.slide_from_logo)
+                                AnimationUtils.loadAnimation(
+                                    this@SplashyActivity,
+                                    R.anim.slide_from_logo
+                                )
                             tvSubTitle.animation =
-                                AnimationUtils.loadAnimation(this@SplashyActivity, R.anim.slide_from_logo)
+                                AnimationUtils.loadAnimation(
+                                    this@SplashyActivity,
+                                    R.anim.slide_from_logo
+                                )
                             tvTitle.animation.duration = duration
                             tvSubTitle.animation.duration = duration
                             tvTitle.animation.fillAfter = false
@@ -372,24 +458,28 @@ class SplashyActivity : AppCompatActivity() {
                     })
                 }
                 Splashy.Animation.GLOW_LOGO -> {
-                    val blinkAnimation = AlphaAnimation(1f, 0f) // Change alpha from fully visible to invisible
+                    val blinkAnimation =
+                        AlphaAnimation(1f, 0f) // Change alpha from fully visible to invisible
                     blinkAnimation.duration = duration // duration - half a second
-                    blinkAnimation.interpolator = LinearInterpolator() // do not alter animation rate
+                    blinkAnimation.interpolator =
+                        LinearInterpolator() // do not alter animation rate
                     blinkAnimation.repeatCount = -1 // Repeat animation infinitely
                     blinkAnimation.repeatMode = Animation.REVERSE
                     ivLogo.animation = blinkAnimation
                 }
                 Splashy.Animation.GLOW_LOGO_TITLE -> {
-                    val blinkAnimation = AlphaAnimation(1f, 0f) // Change alpha from fully visible to invisible
+                    val blinkAnimation =
+                        AlphaAnimation(1f, 0f) // Change alpha from fully visible to invisible
                     blinkAnimation.duration = duration // duration - half a second
-                    blinkAnimation.interpolator = LinearInterpolator() // do not alter animation rate
+                    blinkAnimation.interpolator =
+                        LinearInterpolator() // do not alter animation rate
                     blinkAnimation.repeatCount = -1 // Repeat animation infinitely
                     blinkAnimation.repeatMode = Animation.REVERSE
                     ivLogo.animation = blinkAnimation
                     tvTitle.animation = blinkAnimation
                 }
 
-                Splashy.Animation.GROW_LOGO_FROM_CENTER->{
+                Splashy.Animation.GROW_LOGO_FROM_CENTER -> {
 
                     val fadeIn = ScaleAnimation(
                         0f,
@@ -406,7 +496,7 @@ class SplashyActivity : AppCompatActivity() {
                     fadeIn.fillAfter =
                         true // If fillAfter is true, the transformation that this animation performed will persist when it is finished.
 
-                    ivLogo.animation= fadeIn
+                    ivLogo.animation = fadeIn
                 }
             }
         }
@@ -434,15 +524,6 @@ class SplashyActivity : AppCompatActivity() {
             }
             finish()
         }, time)
-    }
-
-    internal fun hideSplashy() {
-        //  instance.finishAffinity()
-        if (onComplete != null) {
-            onComplete?.onComplete()
-
-        }
-
     }
 
 

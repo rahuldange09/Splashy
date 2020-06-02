@@ -20,7 +20,13 @@ class Splashy(private var activity: Activity) {
      * @return  Returns the same Intent object, for chaining multiple calls
      * into a single statement.
      */
+    @Deprecated("setTime() is deprecated. Please use setDuration()")
     fun setTime(time: Long = 2000): Splashy {
+        intent.putExtra(SplashyActivity.TIME, time)
+        return this
+    }
+
+    fun setDuration(time: Long = 2000): Splashy {
         intent.putExtra(SplashyActivity.TIME, time)
         return this
     }
@@ -371,8 +377,7 @@ class Splashy(private var activity: Activity) {
          * This hides Splash screen
          */
         fun hide() {
-            val splashy = SplashyActivity()
-            splashy.hideSplashy()
+            SplashyActivity.hideSplashy()
         }
 
 

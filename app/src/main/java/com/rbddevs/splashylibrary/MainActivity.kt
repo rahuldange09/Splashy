@@ -1,6 +1,7 @@
 package com.rbddevs.splashylibrary
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
@@ -13,8 +14,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSplashy()
-
-
     }
 
     private fun setSplashy() {
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             .setFullScreen(true)
             .setSubTitleFontStyle("fonts/satisfy_regular.ttf")
             .setClickToHide(true)
-            .setTime(5000)
+            .setDuration(5000)
             .show()
 
         Splashy.onComplete(object : Splashy.OnComplete {
@@ -42,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 
     public fun showSplash(v: View) {
         setSplashy()
+        // Hides after 1sec
+        Handler().postDelayed({
+            Splashy.hide()
+        }, 1000)
     }
 
 }
